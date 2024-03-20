@@ -75,7 +75,7 @@
 
     class Joint
       attr_accessor :xml,:qvel,:qpos,:name,:dof
-      def initialize(type=nil,name="",axis=nil, pos=nil,
+      def initialize(type=nil,name="",axis=nil, pos=nil, range=nil,
                      euler=nil,class_dic=nil)
 
         @name = name
@@ -112,6 +112,7 @@
         axis_xml  = axis.nil?  ?        nil  :  %{ axis="#{a_to_s(axis)}" }.gsub(/^  /, '')
         pos_xml   = pos.nil?   ?        nil  :  %{pos= "#{a_to_s(pos)}"   }.gsub(/^  /, '')
         euler_xml = euler.nil? ?        nil  :  %{euler="#{a_to_s(euler)}"}.gsub(/^  /, '')
+        range_xml = range.nil? ?        nil  :  %{range="#{a_to_s(range)}"}.gsub(/^  /, '')
         type_xml  = type.nil? ?         nil  :  %{type="#{type}"}.gsub(/^  /, '')
 
         class_xml = nil
@@ -126,17 +127,21 @@
               pos_xml=nil
             elsif attrbiute =="euler"
               euler_xml=nil
+            elsif attrbiute =="range"
+              range_xml=nil
             elsif attrbiute =="type"
               type_xml=nil
 
             end
 
           end
-          class_xml =  class_dic.key?("name") ?    %{class="#{class_dic["name"]}"}.gsub(/^  /, ''): nil
+          if class_dic.key?("name")
+            class_xml = class_dic["name"].nil?  ?     nil :  %{class="#{class_dic["name"]}"}.gsub(/^  /, '')
+          end
         end
 
         @xml = %{
-          <joint #{name_xml} #{type_xml} #{axis_xml} #{pos_xml} #{euler_xml} #{class_xml}/>
+          <joint #{name_xml} #{type_xml} #{axis_xml} #{pos_xml} #{euler_xml} #{range_xml} #{class_xml}/>
         }.gsub(/^  /, '')
 
 

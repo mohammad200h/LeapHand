@@ -1,0 +1,29 @@
+<%
+    require 'erb'
+    require 'matrix'
+    require_relative "thumb"
+
+    thumb = Thumb.new(body_pose=[0,0,0,0,0,0,1],prefix=nil,
+                        compute_inertia=false,left=false,is_child=false)
+%>
+
+<mujoco>
+  <compiler angle="radian" meshdir="assets"  autolimits="true"/>
+
+  <asset>
+    <%=thumb.assets_xml%>
+  </asset>
+
+  <default>
+    <%=thumb.default_xml%>
+  </default>
+
+  <worldbody>
+    <%=thumb.body_xml%>
+  </worldbody>
+
+  <actuator>
+    <%=thumb.actuator_xml%>
+  </actuator>
+
+</mujoco>

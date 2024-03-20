@@ -44,7 +44,7 @@ class FingerLink
 
     #TODO figure out the joint
     if j
-      @joint = Joint.new(type=get_finger_joint_type(j["class"]),name=j["name"],axis=nil, pos=nil,
+      @joint = Joint.new(type=get_finger_joint_type(j["class"]),name=j["name"],axis=nil, pos=nil,range=j["range"],
       euler=nil,class_dic = {
         "name"=>j["class"],
         "ignore"=>["type"]
