@@ -1,5 +1,4 @@
-def get_thumb(prefix=nil,names_space_flag=false,finger_name="TH")
-
+def get_thumb(prefix=nil,is_child=false,names_space_flag=false,finger_name="TH")
   ###### Material ####
   # https://rgbcolorpicker.com/0-1
   materials =[
@@ -62,7 +61,6 @@ def get_thumb(prefix=nil,names_space_flag=false,finger_name="TH")
   #TODO: add joints
   links = [
     {
-      "childclass"=>"thumb",
       "name"=>"knuckle",
       "pos"=> [-0.0693952, -0.00124224, -0.0216224],
       "quat"=>[0.707107, 0, 0.707107, 0],
@@ -83,6 +81,16 @@ def get_thumb(prefix=nil,names_space_flag=false,finger_name="TH")
             "mesh"=>"pip",
             "material"=>"yellow"
           }
+      ],
+      "g_col"=>[
+        {
+          "name" => finger_name+"knuckle_b_1",
+          "type"=> "box",
+          "pos"=> [-0.008,0.0,-0.012],
+          "euler"=> [0,0,0],
+          "size"=> [0.018,0.015,0.012],
+          "mat"=>"green"
+        }
       ]
     },
     {
@@ -126,7 +134,18 @@ def get_thumb(prefix=nil,names_space_flag=false,finger_name="TH")
               "mesh"=>"thumb_dip",
               "material"=>"yellow"
           }
+      ],
+      "g_col"=>[
+        {
+          "name" => finger_name+"middle_b_1",
+          "type"=> "box",
+          "pos"=> [-0.005,0.01,-0.0135],
+          "euler"=> [0,0,0],
+          "size"=> [0.015,0.02,0.015],
+          "mat"=>"green"
+        }
       ]
+
     },
     {
       "name"=>"distal",
@@ -147,10 +166,32 @@ def get_thumb(prefix=nil,names_space_flag=false,finger_name="TH")
               "mesh"=>"thumb_fingertip",
               "material"=>"yellow"
           }
+      ],
+      "g_col"=>[
+        {
+          "name" => finger_name+"distal_b_1",
+          "type"=> "box",
+          "pos"=> [0.005,-0.01,-0.014],
+          "euler"=> [0,0,0],
+          "size"=> [0.015,0.02,0.015],
+          "mat"=>"green"
+        },
+        {
+          "name" => finger_name+"distal_b_2",
+          "type"=> "box",
+          "pos"=> [0.00094,-0.05,-0.014],
+          "euler"=> [0,0,0],
+          "size"=> [0.012,0.014,0.013],
+          "mat"=>"green"
+        }
       ]
     },
   ]
 
+
+  if !is_child
+    links[0]["childclass"]="thumb"
+  end
   ###### Actuators ########
   #TODO
   actuators = [
@@ -192,6 +233,7 @@ def get_thumb(prefix=nil,names_space_flag=false,finger_name="TH")
     if a.key?("joint")
       a["joint"] += "_"+finger_name
     end
+    a["name"] += "_"+finger_name
   end
 
   ###### Equality #####
@@ -213,7 +255,7 @@ def get_thumb(prefix=nil,names_space_flag=false,finger_name="TH")
     end
     if l.key?("g_col")
         for j in 0..l["g_col"].length-1
-            l["g_col"][j]["class"]= name_space+"collision"+"_"+(i%2).to_s()
+            l["g_col"][j]["class"]= name_space+"collision"+"_"+l["g_col"][j]["type"]
         end
     end
     if l.key?("j")

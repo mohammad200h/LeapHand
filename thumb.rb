@@ -8,11 +8,11 @@ require_relative "link"
 class Thumb
   attr_accessor :default_xml,:assets_xml,:body_xml,:contact_xml,
                 :actuator_xml,:tendon_xml,:equality_xml,:name,:joints,:data
-  def initialize(body_pose=[0,0,0,0,0,0,1],model="14",children=nil,
+  def initialize(body_pose=[0,0,0,0,0,0,1],
                  prefix=nil,is_child=false,compute_inertia=false)
 
     @name = "thumb"
-    @data = get_thumb(prefix)
+    @data = get_thumb(prefix,is_child)
     links,contacts,actuators,meshes,materials,tendon,classes,defaults = @data
     @joints = []
 
@@ -31,10 +31,10 @@ class Thumb
       else
         collision_class = 0
       end
-      parent_link = FingerLink.new(links[counter-1],compute_inertia,child_link)
+      parent_link = FingerLink.new(links[counter-1],compute_inertia,[child_link])
       # if base link
       if counter ==1
-        parent_link = FingerLink.new(links[counter-1],compute_inertia,child_link,collision_class,body_pose)
+        parent_link = FingerLink.new(links[counter-1],compute_inertia,[child_link],collision_class,body_pose)
       end
       child_link = parent_link
     end
@@ -67,6 +67,9 @@ class Thumb
         <material specular="0.5" shininess="0.25" />
         <default class="visual">
           <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+        </default>
+        <default class="collision_box">
+            <geom group="3" type="box"   mass="0" material="green"/>
         </default>
         #{joints_and_acuators_xml}
       </default>

@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<mujoco>
+  <compiler angle="radian" meshdir="assets" autolimits="true"/>
+  <asset>
+    <material name="gray" rgba="0.4 0.4 0.4 1"/>
+    <material name="yellow" rgba="0.866667 0.866667 0.0509804 1"/>
+    <material name="light_orange" rgba="1 0.749 0 1"/>
+    <material name="green" rgba="0.11 1 0 0.2"/>
+    <material name="red" rgba="0.603922 0.14902 0.14902 1"/>
+    <mesh file="/Users/mohammadhamid/Mujoco/Models/Leap MJCF/Leap/assets/dip.stl"/>
+    <mesh file="/Users/mohammadhamid/Mujoco/Models/Leap MJCF/Leap/assets/pip.stl"/>
+    <mesh file="/Users/mohammadhamid/Mujoco/Models/Leap MJCF/Leap/assets/fingertip.stl"/>
+    <mesh file="/Users/mohammadhamid/Mujoco/Models/Leap MJCF/Leap/assets/mcp_joint.stl"/>
+    <mesh file="/Users/mohammadhamid/Mujoco/Models/Leap MJCF/Leap/assets/thumb_pip.stl"/>
+    <mesh file="/Users/mohammadhamid/Mujoco/Models/Leap MJCF/Leap/assets/thumb_dip.stl"/>
+    <mesh file="/Users/mohammadhamid/Mujoco/Models/Leap MJCF/Leap/assets/thumb_fingertip.stl"/>
+    <mesh file="/Users/mohammadhamid/Mujoco/Models/Leap MJCF/Leap/assets/palm_lower.stl"/>
+  </asset>
+  <default>
+    <default class="leap">
+      <default class="visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+      </default>
+      <default class="inertia">
+        <geom type="mesh" group="4"/>
+      </default>
+      <default class="collision_box">
+        <geom group="3" type="box" mass="0" material="green"/>
+      </default>
+      <joint axis="0 0 -1" damping="2000"/>
+      <position kp="3000"/>
+    </default>
+  </default>
+  <worldbody>
+    <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
+    <body name="palm" childclass="leap">
+      <geom class="visual" pos="-0.0200952 0.0257578 -0.0347224" quat="1 0 0 0" mesh="palm_lower" material="red"/>
+      <geom class="inertia" mesh="palm_lower" material="gray" mass="0.044"/>
+      <geom name="palm_b_1" class="collision_box" pos="-0.008 0.009 -0.01" euler="0 0 0" size="0.012 0.015 0.02"/>
+      <geom name="palm_b_2" class="collision_box" pos="-0.008 -0.037 -0.01" euler="0 0 0" size="0.012 0.015 0.02"/>
+      <geom name="palm_b_3" class="collision_box" pos="-0.008 -0.082 -0.01" euler="0 0 0" size="0.012 0.015 0.02"/>
+      <geom name="palm_b_4" class="collision_box" pos="-0.041 -0.036 -0.01" euler="0 0 0" size="0.022 0.064 0.025"/>
+      <geom name="palm_b_5" class="collision_box" pos="-0.082 -0.06 -0.01" euler="0 0 0" size="0.02 0.04 0.025"/>
+      <body name="knuckle_FF" pos="-0.00709525 0.0230578 -0.0187224" quat="0.5 0.5 0.5 -0.5">
+        <joint name="j0_FF" range="-0.314 2.23"/>
+        <inertial mass="0.044" pos="0 0 0" diaginertia="1.47756e-05 1.31982e-05 6.0802e-06"/>
+        <geom class="visual" pos="0.0084069 0.00776624 0.0146574" quat="1 0 0 0" mesh="mcp_joint" material="gray"/>
+        <geom name="FFknuckle_b_1" class="collision_box" pos="-0.03 0.04 0.018" euler="0 0 0" size="0.015 0.025 0.015"/>
+        <body name="proximal_FF" pos="-0.0122 0.0381 0.0145" quat="0.5 -0.5 -0.5 0.5">
+          <joint name="j1_FF" range="-1.047 1.047"/>
+          <inertial mass="0.032" pos="0 0 0" diaginertia="4.7981e-06 4.23406e-06 2.86184e-06"/>
+          <geom class="visual" pos="0.00964336 0.0003 0.000784034" quat="0.5 -0.5 -0.5 -0.5" mesh="pip" material="yellow"/>
+          <geom name="FFproximal_b_1" class="collision_box" pos="0.01 0.0 -0.013" euler="0 0 0" size="0.02 0.015 0.01"/>
+          <body name="middle_FF" pos="0.015 0.0143 -0.013" quat="0.5 0.5 -0.5 0.5">
+            <joint name="j2_FF" range="-0.506 1.885"/>
+            <inertial mass="0.037" pos="0 0 0" diaginertia="6.68256e-06 6.24841e-06 5.02002e-06"/>
+            <geom class="visual" pos="0.0211334 -0.00843212 0.00978509" quat="0 -1 0 0" mesh="dip" material="yellow"/>
+            <geom name="FFmiddle_b_1" class="collision_box" pos="0.0105 -0.034 0.015" euler="0 0 0" size="0.02 0.014 0.015"/>
+            <body name="distal_FF" pos="-4.08806e-09 -0.0361 0.0002">
+              <joint name="j3_FF" range="-0.366 2.042"/>
+              <inertial mass="0.016" pos="0 0 0" diaginertia="3.37527e-06 2.863e-06 1.54873e-06"/>
+              <geom class="visual" pos="0.0132864 -0.00611424 0.0145" quat="0 1 0 0" mesh="fingertip" material="yellow"/>
+              <geom name="FFdistal_b_1" class="collision_box" pos="0.0009 -0.034 0.0145" euler="0 0 0" size="0.012 0.014 0.012"/>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="knuckle_MF" pos="-0.00709525 -0.0223922 -0.0187224" quat="0.5 0.5 0.5 -0.5">
+        <joint name="j0_MF" range="-0.314 2.23"/>
+        <inertial mass="0.044" pos="0 0 0" diaginertia="1.47756e-05 1.31982e-05 6.0802e-06"/>
+        <geom class="visual" pos="0.0084069 0.00776624 0.0146574" quat="1 0 0 0" mesh="mcp_joint" material="gray"/>
+        <geom name="MFknuckle_b_1" class="collision_box" pos="-0.03 0.04 0.018" euler="0 0 0" size="0.015 0.025 0.015"/>
+        <body name="proximal_MF" pos="-0.0122 0.0381 0.0145" quat="0.5 -0.5 -0.5 0.5">
+          <joint name="j1_MF" range="-1.047 1.047"/>
+          <inertial mass="0.032" pos="0 0 0" diaginertia="4.7981e-06 4.23406e-06 2.86184e-06"/>
+          <geom class="visual" pos="0.00964336 0.0003 0.000784034" quat="0.5 -0.5 -0.5 -0.5" mesh="pip" material="yellow"/>
+          <geom name="MFproximal_b_1" class="collision_box" pos="0.01 0.0 -0.013" euler="0 0 0" size="0.02 0.015 0.01"/>
+          <body name="middle_MF" pos="0.015 0.0143 -0.013" quat="0.5 0.5 -0.5 0.5">
+            <joint name="j2_MF" range="-0.506 1.885"/>
+            <inertial mass="0.037" pos="0 0 0" diaginertia="6.68256e-06 6.24841e-06 5.02002e-06"/>
+            <geom class="visual" pos="0.0211334 -0.00843212 0.00978509" quat="0 -1 0 0" mesh="dip" material="yellow"/>
+            <geom name="MFmiddle_b_1" class="collision_box" pos="0.0105 -0.034 0.015" euler="0 0 0" size="0.02 0.014 0.015"/>
+            <body name="distal_MF" pos="-4.08806e-09 -0.0361 0.0002">
+              <joint name="j3_MF" range="-0.366 2.042"/>
+              <inertial mass="0.016" pos="0 0 0" diaginertia="3.37527e-06 2.863e-06 1.54873e-06"/>
+              <geom class="visual" pos="0.0132864 -0.00611424 0.0145" quat="0 1 0 0" mesh="fingertip" material="yellow"/>
+              <geom name="MFdistal_b_1" class="collision_box" pos="0.0009 -0.034 0.0145" euler="0 0 0" size="0.012 0.014 0.012"/>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="knuckle_RF" pos="-0.00709525 -0.0678422 -0.0187224" quat="0.5 0.5 0.5 -0.5">
+        <joint name="j0_RF" range="-0.314 2.23"/>
+        <inertial mass="0.044" pos="0 0 0" diaginertia="1.47756e-05 1.31982e-05 6.0802e-06"/>
+        <geom class="visual" pos="0.0084069 0.00776624 0.0146574" quat="1 0 0 0" mesh="mcp_joint" material="gray"/>
+        <geom name="RFknuckle_b_1" class="collision_box" pos="-0.03 0.04 0.018" euler="0 0 0" size="0.015 0.025 0.015"/>
+        <body name="proximal_RF" pos="-0.0122 0.0381 0.0145" quat="0.5 -0.5 -0.5 0.5">
+          <joint name="j1_RF" range="-1.047 1.047"/>
+          <inertial mass="0.032" pos="0 0 0" diaginertia="4.7981e-06 4.23406e-06 2.86184e-06"/>
+          <geom class="visual" pos="0.00964336 0.0003 0.000784034" quat="0.5 -0.5 -0.5 -0.5" mesh="pip" material="yellow"/>
+          <geom name="RFproximal_b_1" class="collision_box" pos="0.01 0.0 -0.013" euler="0 0 0" size="0.02 0.015 0.01"/>
+          <body name="middle_RF" pos="0.015 0.0143 -0.013" quat="0.5 0.5 -0.5 0.5">
+            <joint name="j2_RF" range="-0.506 1.885"/>
+            <inertial mass="0.037" pos="0 0 0" diaginertia="6.68256e-06 6.24841e-06 5.02002e-06"/>
+            <geom class="visual" pos="0.0211334 -0.00843212 0.00978509" quat="0 -1 0 0" mesh="dip" material="yellow"/>
+            <geom name="RFmiddle_b_1" class="collision_box" pos="0.0105 -0.034 0.015" euler="0 0 0" size="0.02 0.014 0.015"/>
+            <body name="distal_RF" pos="-4.08806e-09 -0.0361 0.0002">
+              <joint name="j3_RF" range="-0.366 2.042"/>
+              <inertial mass="0.016" pos="0 0 0" diaginertia="3.37527e-06 2.863e-06 1.54873e-06"/>
+              <geom class="visual" pos="0.0132864 -0.00611424 0.0145" quat="0 1 0 0" mesh="fingertip" material="yellow"/>
+              <geom name="RFdistal_b_1" class="collision_box" pos="0.0009 -0.034 0.0145" euler="0 0 0" size="0.012 0.014 0.012"/>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="knuckle_TH" pos="-0.0693952 -0.00124224 -0.0216224" quat="0.707107 0 0.707107 0">
+        <joint name="j0_TH" range="-0.349 2.094"/>
+        <inertial mass="0.032" pos="0 0 0" diaginertia="4.7981e-06 4.23406e-06 2.86184e-06"/>
+        <geom class="visual" pos="-0.00535664 0.0003 0.000784034" quat="0.5 -0.5 -0.5 -0.5" mesh="pip" material="yellow"/>
+        <geom name="THknuckle_b_1" class="collision_box" pos="-0.008 0.0 -0.012" euler="0 0 0" size="0.018 0.015 0.012"/>
+        <body name="proximal_TH" pos="0 0.0143 -0.013" quat="0.5 0.5 -0.5 0.5">
+          <joint name="j1_TH" range="-0.47 2.443"/>
+          <inertial mass="0.003" pos="0 0 0" diaginertia="5.93e-07 5.49e-07 2.24e-07"/>
+          <geom class="visual" pos="0.0119619 0 -0.0158526" quat="0.707107 0.707107 0 0" mesh="thumb_pip" material="yellow"/>
+          <body name="middle_TH" pos="0 0.0145 -0.017" quat="0.707107 -0.707107 0 0">
+            <joint name="j2_TH" range="-1.2 1.9"/>
+            <inertial mass="0.038" pos="0 0 0" diaginertia="8.48742e-06 7.67823e-06 3.82835e-06"/>
+            <geom class="visual" pos="0.0439687 0.057953 -0.00862868" quat="1 0 0 0" mesh="thumb_dip" material="yellow"/>
+            <geom name="THmiddle_b_1" class="collision_box" pos="-0.005 0.01 -0.0135" euler="0 0 0" size="0.015 0.02 0.015"/>
+            <body name="distal_TH" pos="0 0.0466 0.0002" quat="0 0 0 1">
+              <joint name="j3_TH" range="-1.34 1.88"/>
+              <inertial mass="0.049" pos="0 0 0" diaginertia="2.03882e-05 1.98443e-05 4.32049e-06"/>
+              <geom class="visual" pos="0.0625595 0.0784597 0.0489929" mesh="thumb_fingertip" material="yellow"/>
+              <geom name="THdistal_b_1" class="collision_box" pos="0.005 -0.01 -0.014" euler="0 0 0" size="0.015 0.02 0.015"/>
+              <geom name="THdistal_b_2" class="collision_box" pos="0.00094 -0.05 -0.014" euler="0 0 0" size="0.012 0.014 0.013"/>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+  <actuator>
+    <position class="leap" name="actuator1_FF" joint="j0_FF" ctrlrange="-0.314 2.23"/>
+    <position class="leap" name="actuator2_FF" joint="j1_FF" ctrlrange="-1.047 1.047"/>
+    <position class="leap" name="actuator3_FF" joint="j2_FF" ctrlrange="-0.506 1.885"/>
+    <position class="leap" name="actuator4_FF" joint="j3_FF" ctrlrange="-0.366 2.042"/>
+    <position class="leap" name="actuator1_MF" joint="j0_MF" ctrlrange="-0.314 2.23"/>
+    <position class="leap" name="actuator2_MF" joint="j1_MF" ctrlrange="-1.047 1.047"/>
+    <position class="leap" name="actuator3_MF" joint="j2_MF" ctrlrange="-0.506 1.885"/>
+    <position class="leap" name="actuator4_MF" joint="j3_MF" ctrlrange="-0.366 2.042"/>
+    <position class="leap" name="actuator1_RF" joint="j0_RF" ctrlrange="-0.314 2.23"/>
+    <position class="leap" name="actuator2_RF" joint="j1_RF" ctrlrange="-1.047 1.047"/>
+    <position class="leap" name="actuator3_RF" joint="j2_RF" ctrlrange="-0.506 1.885"/>
+    <position class="leap" name="actuator4_RF" joint="j3_RF" ctrlrange="-0.366 2.042"/>
+    <position class="leap" name="actuator1_TH" joint="j0_TH" ctrlrange="-0.349 2.094"/>
+    <position class="leap" name="actuator2_TH" joint="j1_TH" ctrlrange="-0.47 2.443"/>
+    <position class="leap" name="actuator3_TH" joint="j2_TH" ctrlrange="-1.2 1.9"/>
+    <position class="leap" name="actuator4_TH" joint="j3_TH" ctrlrange="-1.34 1.88"/>
+  </actuator>
+  <contact>
+    <exclude body1="knuckle_FF" body2="palm"/>
+    <exclude body1="knuckle_MF" body2="palm"/>
+    <exclude body1="knuckle_RF" body2="palm"/>
+    <exclude body1="knuckle_TH" body2="palm"/>
+  </contact>
+</mujoco>

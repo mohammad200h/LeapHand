@@ -1,5 +1,4 @@
 def get_finger(prefix=nil,names_space_flag=false,finger_name="FF")
-
   ###### Material ####
   # https://rgbcolorpicker.com/0-1
   materials =[
@@ -54,22 +53,6 @@ def get_finger(prefix=nil,names_space_flag=false,finger_name="FF")
     #joints
     "j"=>{
       "axis"=> [0, 0, -1]
-    },
-    "j1"=>{
-        "range"=>[-0.314, 2.23],
-        "ctrlrange"=>[-0.314, 2.23]
-    },
-    "j2"=>{
-        "range"=>[-1.047, 1.047],
-        "ctrlrange"=>[-1.047, 1.047]
-    },
-    "j3"=>{
-        "range"=>[-0.506, 1.885],
-        "ctrlrange"=>[-0.506, 1.885]
-    },
-    "j4"=>{
-      "range"=>[-0.366, 2.042],
-      "ctrlrange"=>[-0.366, 2.042]
     }
 
   }
@@ -89,7 +72,7 @@ def get_finger(prefix=nil,names_space_flag=false,finger_name="FF")
       },
       "j"=>{
             "name"=>"j0",
-            "class"=>"joint1"
+            "range"=>[-0.314, 2.23]
       },
       "g_visual"=>[
           {
@@ -98,6 +81,16 @@ def get_finger(prefix=nil,names_space_flag=false,finger_name="FF")
             "mesh"=>"mcp_joint",
             "material"=>"gray"
           }
+      ],
+      "g_col"=>[
+        {
+          "name" => finger_name+"knuckle_b_1",
+          "type"=> "box",
+          "pos"=> [-0.03,0.04,0.018],
+          "euler"=> [0,0,0],
+          "size"=> [0.015,0.025,0.015],
+          "mat"=>"green"
+        }
       ]
     },
     {
@@ -112,7 +105,7 @@ def get_finger(prefix=nil,names_space_flag=false,finger_name="FF")
       },
       "j"=>{
             "name"=>"j1",
-            "class"=>"joint2"
+            "range"=>[-1.047, 1.047]
       },
       "g_visual"=>[
           {  "pos"=>[0.00964336, 0.0003, 0.000784034],
@@ -120,6 +113,16 @@ def get_finger(prefix=nil,names_space_flag=false,finger_name="FF")
               "mesh"=>"pip",
               "material"=>"yellow"
           }
+      ],
+      "g_col"=>[
+        {
+          "name" => finger_name+"proximal_b_1",
+          "type"=> "box",
+          "pos"=> [0.01,0.0,-0.013],
+          "euler"=> [0,0,0],
+          "size"=> [0.02,0.015,0.01],
+          "mat"=>"green"
+        }
       ]
     },
     {
@@ -134,7 +137,7 @@ def get_finger(prefix=nil,names_space_flag=false,finger_name="FF")
       },
       "j"=>{
             "name"=>"j2",
-            "class"=>"joint3"
+            "range"=>[-0.506, 1.885]
       },
       "g_visual"=>[
           {  "pos"=>[0.0211334, -0.00843212, 0.00978509],
@@ -142,6 +145,16 @@ def get_finger(prefix=nil,names_space_flag=false,finger_name="FF")
               "mesh"=>"dip",
               "material"=>"yellow"
           }
+      ],
+      "g_col"=>[
+        {
+          "name" => finger_name+"middle_b_1",
+          "type"=> "box",
+          "pos"=> [0.0105,-0.034,0.015],
+          "euler"=> [0,0,0],
+          "size"=> [0.02,0.014,0.015],
+          "mat"=>"green"
+        }
       ]
     },
     {
@@ -155,7 +168,7 @@ def get_finger(prefix=nil,names_space_flag=false,finger_name="FF")
       },
       "j"=>{
             "name"=>"j3",
-            "class"=>"joint4"
+            "range"=>[-0.366, 2.042],
       },
       "g_visual"=>[
           {  "pos"=>[0.0132864, -0.00611424, 0.0145],
@@ -163,6 +176,16 @@ def get_finger(prefix=nil,names_space_flag=false,finger_name="FF")
               "mesh"=>"fingertip",
               "material"=>"yellow"
           }
+      ],
+      "g_col"=>[
+        {
+          "name" => finger_name+"distal_b_1",
+          "type"=> "box",
+          "pos"=> [0.0009,-0.034,0.0145],
+          "euler"=> [0,0,0],
+          "size"=> [0.012,0.014,0.012],
+          "mat"=>"green"
+        }
       ]
     },
   ]
@@ -173,22 +196,22 @@ def get_finger(prefix=nil,names_space_flag=false,finger_name="FF")
     {
       "name"  => "actuator1",
       "joint" => "j0",
-      "class" => "joint1"
+      "ctrlrange"=>[-0.314, 2.23]
     },
     {
       "name"  => "actuator2",
       "joint" => "j1",
-      "class" => "joint2"
+      "ctrlrange"=>[-1.047, 1.047]
     },
     {
       "name"  => "actuator3",
       "joint" => "j2",
-      "class" => "joint3"
+      "ctrlrange"=>[-0.506, 1.885]
     },
     {
       "name"  => "actuator4",
       "joint" => "j3",
-      "class" => "joint4"
+      "ctrlrange"=>[-0.366, 2.042]
     }
   ]
 
@@ -207,6 +230,7 @@ def get_finger(prefix=nil,names_space_flag=false,finger_name="FF")
     a = actuators[i]
     if a.key?("joint")
       a["joint"] += "_"+finger_name
+      a["name"] += "_"+finger_name
     end
   end
 
@@ -229,12 +253,11 @@ def get_finger(prefix=nil,names_space_flag=false,finger_name="FF")
     end
     if l.key?("g_col")
         for j in 0..l["g_col"].length-1
-            l["g_col"][j]["class"]= name_space+"collision"+"_"+(i%2).to_s()
+            l["g_col"][j]["class"]= name_space+"collision"+"_"+l["g_col"][j]["type"]
         end
     end
     if l.key?("j")
         l['j']["name"] = name_space+l['j']["name"]
-        l['j']["class"] = name_space+l['j']["class"]
     end
     links[i] = l
   end

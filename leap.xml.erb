@@ -1,0 +1,38 @@
+<%
+    require 'erb'
+    require 'matrix'
+    require_relative "leap"
+
+    leap = Leap.new(body_pose=[0,0,0,0,0,0,1],prefix=nil,
+                        compute_inertia=false,left=false,is_child=false)
+%>
+
+<mujoco>
+  <compiler angle="radian" meshdir="assets"  autolimits="true"/>
+
+  <asset>
+    <%=leap.assets_xml%>
+  </asset>
+
+  <default>
+    <%=leap.default_xml%>
+  </default>
+
+  <worldbody>
+    <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
+    <%=leap.body_xml%>
+  </worldbody>
+
+  <%if leap.actuator_xml%>
+    <actuator>
+      <%=leap.actuator_xml%>
+    </actuator>
+  <%end%>
+
+   <%if leap.contact_xml%>
+    <contact>
+      <%=leap.contact_xml%>
+    </contact>
+  <%end%>
+
+</mujoco>

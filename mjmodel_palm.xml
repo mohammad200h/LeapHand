@@ -1,0 +1,26 @@
+<mujoco model="Leap">
+  <compiler angle="radian" meshdir="assets" autolimits="true"/>
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="60" elevation="-20"/>
+  </visual>
+  
+  <asset>
+    <mesh name="palm_lower" file="palm_lower.stl"/>
+    <mesh name="mcp_joint" file="mcp_joint.stl"/>
+    <mesh name="pip" file="pip.stl"/>
+    <mesh name="dip" file="dip.stl"/>
+    <mesh name="fingertip" file="fingertip.stl"/>
+    <mesh name="thumb_pip" file="thumb_pip.stl"/>
+    <mesh name="thumb_dip" file="thumb_dip.stl"/>
+    <mesh name="thumb_fingertip" file="thumb_fingertip.stl"/>
+  </asset>
+
+  <worldbody>
+    <body name="palm">
+      <geom pos="-0.0200952 0.0257578 -0.0347224" type="mesh" rgba="0.603922 0.14902 0.14902 1" mesh="palm_lower"/>
+    </body>
+
+  </worldbody>
+</mujoco>

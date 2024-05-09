@@ -1,0 +1,31 @@
+<%
+    require 'erb'
+    require 'matrix'
+    require_relative "palm"
+
+    palm = Palm.new(body_pose=[0,0,0,0,0,0,1],prefix=nil,
+                        compute_inertia=false,left=false,is_child=false)
+%>
+
+<mujoco>
+  <compiler angle="radian" meshdir="assets"  autolimits="true"/>
+
+  <asset>
+    <%=palm.assets_xml%>
+  </asset>
+
+  <default>
+    <%=palm.default_xml%>
+  </default>
+
+  <worldbody>
+    <%=palm.body_xml%>
+  </worldbody>
+
+  <%if palm.actuator_xml%>
+    <actuator>
+      <%=palm.actuator_xml%>
+    </actuator>
+  <%end%>
+
+</mujoco>

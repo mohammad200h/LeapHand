@@ -5,16 +5,22 @@ require_relative "Utility"
 require_relative "fingerData"
 
 
+def roundIt(numbers)
+  numbers=numbers.map { |num| num.round(5) }
+end
+
+
 class FingerLink
   attr_accessor :body_xml,:joint
-  def initialize(data,compute_inertia=true,child=nil,collision_class=0,base_pose=nil)
+  def initialize(data,compute_inertia=true,children=[],collision_class=0,base_pose=nil)
     # puts "link"
     link_name = data["name"]
 
     childclass = data.key?("childclass") ? data["childclass"] : nil
 
+
     #link pose
-    body_pos = data["pos"]
+    body_pos = data.key?("pos") ? data["pos"] : nil
     body_orn = data.key?("quat") ? data["quat"] : nil
 
     if base_pose
@@ -59,7 +65,7 @@ class FingerLink
     #### generate body (link) name #########
     name_xml =  %{name="#{a_to_s(link_name)}"}
     ######## genrate body_pose ######
-    pos_xml = %{pos="#{a_to_s(body_pos)}"}
+    pos_xml =  body_pos.nil? ? nil : %{pos="#{a_to_s(body_pos)}"}
     quat_xml = body_orn.nil? ? nil : %{quat="#{a_to_s(body_orn)}"}
 
     ###### generating childclass ######
@@ -116,13 +122,22 @@ class FingerLink
     ######generate collisions#####
     collisions_xml = %{}
 
+
     if c_l
       c_l.each do |c|
+        mesh_xml = c.key?("mesh")  ?     %{ mesh="#{c["mesh"]}" }.gsub(/^  /, '') : nil
         material_xml =  c.key?("mat")  ?     %{ material="#{c["mat"]}" }.gsub(/^  /, '') : nil
 
-        c_xml = %{  <geom class="#{c["class"]}" size="#{c["size"]}" pos="#{a_to_s(c["pos"])}"/>
-        }
+        c_name_xml = c.key?("name")  ?       %{ name="#{c["name"]}" }.gsub(/^  /, '') : nil
 
+        c_size_xml = nil
+        if (c["type"]=="box" || c["type"]=="capsule" ||c["type"]=="cylinder")
+          c_size_xml = %{size="#{a_to_s(c["size"])}"}.gsub(/^  /, '')
+        end
+        c_pos_xml  = c.key?("pos")      ?     %{ pos="#{a_to_s(roundIt(c["pos"]))}" }.gsub(/^  /, '')             : nil
+        euler_xml = c.key?("euler")     ?     %{ euler="#{a_to_s(roundIt(c["euler"]))}" }.gsub(/^  /, '')       : nil
+        c_xml = %{  <geom #{c_name_xml} class="#{c["class"]}"  #{mesh_xml} #{c_pos_xml} #{euler_xml}  #{c_size_xml} />
+        }
         collisions_xml += c_xml
       end
     end
@@ -130,10 +145,16 @@ class FingerLink
     ######generate joint#####
     joint_xml = j.nil? ? nil: @joint.xml
 
+  ##### genrate children ####
+  child_xml =%{}.gsub(/^  /, '')
 
+  if children
+    children.each do |ch| # these are neighbours
+      child_xml += ch.body_xml
+    end
+  end
 
-    child_xml = child.nil?  ?     nil :child.body_xml
-
+  ####### genrating body #########
 
     @body_xml=%{
       <body #{name_xml} #{pos_xml} #{quat_xml} #{childclass_xml}>
@@ -143,7 +164,10 @@ class FingerLink
         #{g_inertia_xml}
         #{collisions_xml}
 
-          #{child_xml}
+        #{child_xml}
+
+
+
 
       </body>
 
