@@ -6,10 +6,10 @@
     <material name="yellow" rgba="0.866667 0.866667 0.0509804 1"/>
     <material name="light_orange" rgba="1 0.749 0 1"/>
     <material name="green" rgba="0.11 1 0 0.2"/>
-    <mesh file="/Users/mohammadhamid/Mujoco/Models/Leap MJCF/Leap/assets/dip.stl"/>
-    <mesh file="/Users/mohammadhamid/Mujoco/Models/Leap MJCF/Leap/assets/pip.stl"/>
-    <mesh file="/Users/mohammadhamid/Mujoco/Models/Leap MJCF/Leap/assets/fingertip.stl"/>
-    <mesh file="/Users/mohammadhamid/Mujoco/Models/Leap MJCF/Leap/assets/mcp_joint.stl"/>
+    <mesh file="dip.stl"/>
+    <mesh file="pip.stl"/>
+    <mesh file="fingertip.stl"/>
+    <mesh file="mcp_joint.stl"/>
   </asset>
   <default>
     <default class="finger">
@@ -20,6 +20,9 @@
       <default class="collision_box">
         <geom group="3" type="box" mass="0" material="green"/>
       </default>
+      <default class="collision_cylinder">
+        <geom group="3" type="cylinder" mass="0" material="green"/>
+      </default>
       <joint axis="0 0 -1" damping="2000"/>
     </default>
   </default>
@@ -28,32 +31,75 @@
       <joint name="j0_FF" range="-0.314 2.23"/>
       <inertial mass="0.044" pos="0 0 0" diaginertia="1.47756e-05 1.31982e-05 6.0802e-06"/>
       <geom class="visual" pos="0.0084069 0.00776624 0.0146574" quat="1 0 0 0" mesh="mcp_joint" material="gray"/>
-      <geom name="knuckle_b_1" class="collision_box" pos="0.0 0.008 0.015" euler="0 0 0" size="0.012 0.015 0.02"/>
-      <geom name="knuckle_b_2" class="collision_box" pos="-0.03 0.04 0.018" euler="0 0 0" size="0.015 0.025 0.015"/>
+
+      <geom name="knuckle_b_1" class="collision_box" pos="0.0 0.018 0.0145" euler="0 0 0"
+      size="0.012 0.003 0.0165"/>
+      <geom name="knuckle_b_2" class="collision_box" pos="0.0 0.01 -0.0015" euler="0 0 0" size="0.01 0.008 0.0013"/>
+      <geom name="knuckle_c_3" class="collision_cylinder" pos="0.0 0.0 -0.0015" euler="0 0 0" size="0.008 0.0013 "/>
+      <geom name="knuckle_b_4" class="collision_box" pos="0.0 0.01 0.0305" euler="0 0 0" size="0.01 0.008 0.0013"/>
+      <geom name="knuckle_c_5" class="collision_cylinder" pos="0.0 0.0 0.0305" euler="0 0 0" size="0.008 0.0013 "/>
+      <geom name="knuckle_b_6" class="collision_box" pos="-0.0278 0.021 0.014" euler="0 0 0"
+       size="0.0152 0.0045 0.01"/>
+      <geom name="knuckle_b_7" class="collision_box" pos="-0.0265 0.0285 0.014" euler="0 0 0"
+       size="0.0142 0.003 0.01"/>
+      <geom name="knuckle_b_8" class="collision_box" pos="-0.026 0.0281 0.028" euler="0 0 0"
+       size="0.0125 0.0045 0.005"/>
+      <geom name="knuckle_b_9" class="collision_box" pos="-0.0295 0.04 0.028" euler="0 0 0"
+       size="0.009 0.0075 0.005"/>
+      <geom name="knuckle_b_10" class="collision_box" pos="-0.0265 0.047 0.014" euler="0 0 0"
+       size="0.0115 0.0156 0.01"/>
+
+
       <body name="proximal_FF" pos="-0.0122 0.0381 0.0145" quat="0.5 -0.5 -0.5 0.5">
         <joint name="j1_FF" range="-1.047 1.047"/>
         <inertial mass="0.032" pos="0 0 0" diaginertia="4.7981e-06 4.23406e-06 2.86184e-06"/>
         <geom class="visual" pos="0.00964336 0.0003 0.000784034" quat="0.5 -0.5 -0.5 -0.5" mesh="pip" material="yellow"/>
-        <geom name="proximal_b_1" class="collision_box" pos="0.01 0.0 -0.013" euler="0 0 0" size="0.02 0.015 0.01"/>
+
+        <geom name="proximal_b_1" class="collision_box" pos="0.0075 0.0 -0.013"
+        euler="0 0 0" size="0.017 0.0115 0.01"/>
+
         <body name="middle_FF" pos="0.015 0.0143 -0.013" quat="0.5 0.5 -0.5 0.5">
           <joint name="j2_FF" range="-0.506 1.885"/>
           <inertial mass="0.037" pos="0 0 0" diaginertia="6.68256e-06 6.24841e-06 5.02002e-06"/>
           <geom class="visual" pos="0.0211334 -0.00843212 0.00978509" quat="0 -1 0 0" mesh="dip" material="yellow"/>
-          <geom name="middle_b_1" class="collision_box" pos="0.0105 -0.034 0.015" euler="0 0 0" size="0.02 0.014 0.015"/>
+
+          <geom name="middle_b_1" class="collision_box" pos="0.0 -0.0155 0.0145" euler="0 0 0"
+           size="0.01 0.0015 0.015"/>
+          <geom name="middle_b_2" class="collision_box" pos="0.0 -0.009 -0.0015" euler="0 0 0" size="0.01 0.008 0.0013"/>
+          <geom name="middle_c_3" class="collision_cylinder" pos="0.0 0.0 -0.0015" euler="0 0 0" size="0.008 0.0013 "/>
+          <geom name="middle_b_4" class="collision_box" pos="0.0 -0.009 0.0305" euler="0 0 0" size="0.01 0.008 0.0013"/>
+          <geom name="middle_c_5" class="collision_cylinder" pos="0.0 0.0 0.0305" euler="0 0 0" size="0.008 0.0013 "/>
+
+          <geom name="middle_b_6" class="collision_box" pos="0.0 -0.019 0.0145" euler="0 0 0"
+           size="0.008 0.004 0.0125"/>
+          <geom name="middle_b_7" class="collision_box" pos="0.0075 -0.0352 0.0145" euler="0 0 0"
+           size="0.017 0.011 0.0115"/>
+
+
           <body name="distal_FF" pos="-4.08806e-09 -0.0361 0.0002">
             <joint name="j3_FF" range="-0.366 2.042"/>
             <inertial mass="0.016" pos="0 0 0" diaginertia="3.37527e-06 2.863e-06 1.54873e-06"/>
             <geom class="visual" pos="0.0132864 -0.00611424 0.0145" quat="0 1 0 0" mesh="fingertip" material="yellow"/>
-            <geom name="distal_b_1" class="collision_box" pos="0.0009 -0.034 0.0145" euler="0 0 0" size="0.012 0.014 0.012"/>
+
+            <geom name="distal_b_1" class="collision_box" pos="0.0 -0.0155 0.0145" euler="0 0 0"
+             size="0.01 0.005 0.017"/>
+            <geom name="distal_b_2" class="collision_box" pos="0.0 -0.009 -0.0015" euler="0 0 0" size="0.01 0.008 0.0013"/>
+            <geom name="distal_c_3" class="collision_cylinder" pos="0.0 0.0 -0.0015" euler="0 0 0" size="0.008 0.0013 "/>
+            <geom name="distal_b_4" class="collision_box" pos="0.0 -0.009 0.0305" euler="0 0 0" size="0.01 0.008 0.0013"/>
+            <geom name="distal_c_5" class="collision_cylinder" pos="0.0 0.0 0.0305" euler="0 0 0" size="0.008 0.0013 "/>
+            <geom name="distal_b_6" class="collision_box" pos="-0.0009 -0.034 0.0145" euler="0 0 0"
+             size="0.0102 0.014 0.012"/>
+
           </body>
         </body>
       </body>
+
     </body>
   </worldbody>
-  <actuator>
+  <!-- <actuator>
     <position name="actuator1_FF" joint="j0_FF" kp="2000"/>
     <position name="actuator2_FF" joint="j1_FF" kp="2000"/>
     <position name="actuator3_FF" joint="j2_FF" kp="2000"/>
     <position name="actuator4_FF" joint="j3_FF" kp="2000"/>
-  </actuator>
+  </actuator> -->
 </mujoco>
