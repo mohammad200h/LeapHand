@@ -6,10 +6,10 @@
     <material name="yellow" rgba="0.866667 0.866667 0.0509804 1"/>
     <material name="light_orange" rgba="1 0.749 0 1"/>
     <material name="green" rgba="0.11 1 0 0.2"/>
-    <mesh file="/Users/mohammadhamid/Mujoco/Models/Leap MJCF/Leap/assets/pip.stl"/>
-    <mesh file="/Users/mohammadhamid/Mujoco/Models/Leap MJCF/Leap/assets/thumb_pip.stl"/>
-    <mesh file="/Users/mohammadhamid/Mujoco/Models/Leap MJCF/Leap/assets/thumb_dip.stl"/>
-    <mesh file="/Users/mohammadhamid/Mujoco/Models/Leap MJCF/Leap/assets/thumb_fingertip.stl"/>
+    <mesh file="pip.stl"/>
+    <mesh file="thumb_pip.stl"/>
+    <mesh file="thumb_dip.stl"/>
+    <mesh file="thumb_fingertip.stl"/>
   </asset>
   <default>
     <default class="thumb">
@@ -20,6 +20,9 @@
       <default class="collision_box">
         <geom group="3" type="box" mass="0" material="green"/>
       </default>
+       <default class="collision_cylinder">
+        <geom group="3" type="cylinder" mass="0" material="green"/>
+      </default>
       <joint axis="0 0 -1" damping="2000"/>
     </default>
   </default>
@@ -28,31 +31,78 @@
       <joint name="j0_TH" range="-0.349 2.094"/>
       <inertial mass="0.032" pos="0 0 0" diaginertia="4.7981e-06 4.23406e-06 2.86184e-06"/>
       <geom class="visual" pos="-0.00535664 0.0003 0.000784034" quat="0.5 -0.5 -0.5 -0.5" mesh="pip" material="yellow"/>
-      <geom name="THknuckle_b_1" class="collision_box" pos="-0.008 0.0 -0.012" euler="0 0 0" size="0.018 0.015 0.012"/>
+
+      <geom name="THknuckle_b_1" class="collision_box" pos="-0.0075 0.0 -0.013" euler="0 0 0"
+       size="0.017 0.0115 0.01"/>
+
       <body name="proximal_TH" pos="0 0.0143 -0.013" quat="0.5 0.5 -0.5 0.5">
         <joint name="j1_TH" range="-0.47 2.443"/>
         <inertial mass="0.003" pos="0 0 0" diaginertia="5.93e-07 5.49e-07 2.24e-07"/>
         <geom class="visual" pos="0.0119619 0 -0.0158526" quat="0.707107 0.707107 0 0" mesh="thumb_pip" material="yellow"/>
+
+        <geom name="proximal_b_1" class="collision_box" pos="0.0 0.0 -0.0015" euler="0 0 0"
+         size="  0.01 0.015 0.0015"/>
+        <geom name="proximal_b_2" class="collision_box" pos="0.0 0.016 -0.008" euler="0 0 0"
+         size="0.01 0.0013 0.008"/>
+        <geom name="proximal_c_3" class="collision_cylinder" pos="0.0 0.016 -0.017" euler="1.57 0 0"
+          size="0.008 0.0013 "/>
+        <geom name="proximal_b_4" class="collision_box" pos="0.0 -0.016 -0.008" euler="0 0 0"
+         size="0.01 0.0013 0.008"/>
+        <geom name="proximal_c_5" class="collision_cylinder" pos="0.0 -0.016 -0.017" euler="1.57 0 0"
+          size="0.008 0.0013 "/>
+
+
+
         <body name="middle_TH" pos="0 0.0145 -0.017" quat="0.707107 -0.707107 0 0">
           <joint name="j2_TH" range="-1.2 1.9"/>
           <inertial mass="0.038" pos="0 0 0" diaginertia="8.48742e-06 7.67823e-06 3.82835e-06"/>
           <geom class="visual" pos="0.0439687 0.057953 -0.00862868" quat="1 0 0 0" mesh="thumb_dip" material="yellow"/>
-          <geom name="THmiddle_b_1" class="collision_box" pos="-0.005 0.01 -0.0135" euler="0 0 0" size="0.015 0.02 0.015"/>
+
+          <geom name="THmiddle_b_1" class="collision_box" pos="0.0 0.03 -0.0145" euler="0 0 0"
+          size="0.01 0.003 0.0165"/>
+          <geom name="THmiddle_b_2" class="collision_box" pos="0.0 0.04 0.0015" euler="0 0 0"
+            size="0.01 0.008 0.0013"/>
+          <geom name="THmiddle_c_3" class="collision_cylinder" pos="0.0 0.0465 0.0015" euler="0 0 0"
+            size="0.008 0.0013 "/>
+          <geom name="THmiddle_b_4" class="collision_box" pos="0.0 0.04 -0.0305" euler="0 0 0"
+            size="0.01 0.008 0.0013"/>
+          <geom name="THmiddle_c_5" class="collision_cylinder" pos="0.0 0.0465 -0.0305" euler="0 0 0"
+            size="0.008 0.0013 "/>
+          <geom name="THmiddle_b_6" class="collision_box" pos="-0.0145 0.013 -0.0115"
+           euler="0 0 0" size="0.004 0.0075 0.009"/>
+          <geom name="THmiddle_b_7" class="collision_box" pos="-0.0145 0.025 -0.015"
+           euler="0 0 0" size="0.004 0.005 0.0125"/>
+          <geom name="THmiddle_b_8" class="collision_box" pos="-0.0 0.007 -0.0143"
+           euler="0 0 0" size="0.01 0.017 0.0115"/>
+
           <body name="distal_TH" pos="0 0.0466 0.0002" quat="0 0 0 1">
             <joint name="j3_TH" range="-1.34 1.88"/>
             <inertial mass="0.049" pos="0 0 0" diaginertia="2.03882e-05 1.98443e-05 4.32049e-06"/>
             <geom class="visual" pos="0.0625595 0.0784597 0.0489929" mesh="thumb_fingertip" material="yellow"/>
-            <geom name="THdistal_b_1" class="collision_box" pos="0.005 -0.01 -0.014" euler="0 0 0" size="0.015 0.02 0.015"/>
-            <geom name="THdistal_b_2" class="collision_box" pos="0.00094 -0.05 -0.014" euler="0 0 0" size="0.012 0.014 0.013"/>
+
+            <geom name="THdistal_b_6" class="collision_box" pos="0.0145 -0.013 -0.0115"
+             euler="0 0 0" size="0.004 0.0075 0.009"/>
+            <geom name="THdistal_b_7" class="collision_box" pos="0.0145 -0.025 -0.015"
+             euler="0 0 0" size="0.004 0.005 0.0125"/>
+
+            <geom name="THdistal_b_8" class="collision_box" pos="0.0 -0.007 -0.0143"
+             euler="0 0 0" size="0.01 0.017 0.0115"/>
+
+            <geom name="THdistal_b_9" class="collision_box" pos="0.0 -0.031 -0.0143"
+             euler="0 0 0" size="0.01 0.002 0.017"/>
+
+            <geom name="THdistal_b_10" class="collision_box" pos="-0.0011 -0.048 -0.0145"
+             euler="0 0 0" size="0.01 0.014 0.0125"/>
+
           </body>
         </body>
       </body>
     </body>
   </worldbody>
   <actuator>
-    <position name="actuator1_TH" joint="j0_TH" ctrlrange="-0.349 2.094" kp="2000"/>
+    <!-- <position name="actuator1_TH" joint="j0_TH" ctrlrange="-0.349 2.094" kp="2000"/>
     <position name="actuator2_TH" joint="j1_TH" ctrlrange="-0.47 2.443" kp="2000"/>
     <position name="actuator3_TH" joint="j2_TH" ctrlrange="-1.2 1.9" kp="2000"/>
-    <position name="actuator4_TH" joint="j3_TH" ctrlrange="-1.34 1.88" kp="2000"/>
+    <position name="actuator4_TH" joint="j3_TH" ctrlrange="-1.34 1.88" kp="2000"/> -->
   </actuator>
 </mujoco>
